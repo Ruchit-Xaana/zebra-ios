@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:Zebra-X-iOS}",
+            "name": "Debug tools",
+            "program": "${workspaceFolder:Zebra-X-iOS}/.build/debug/tools",
+            "preLaunchTask": "swift: Build Debug tools"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:Zebra-X-iOS}",
+            "name": "Release tools",
+            "program": "${workspaceFolder:Zebra-X-iOS}/.build/release/tools",
+            "preLaunchTask": "swift: Build Release tools"
+        }
+    ]
+}

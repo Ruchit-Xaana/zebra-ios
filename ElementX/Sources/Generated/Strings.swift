@@ -2323,6 +2323,10 @@ internal enum L10n {
   }
   /// Check UnifiedPush
   internal static var troubleshootNotificationsTestUnifiedPushTitle: String { return L10n.tr("Localizable", "troubleshoot_notifications_test_unified_push_title") }
+  /// Welcome to %1$@!
+  internal static func zebraScreenOnboardingWelcomeTitle(_ p1: Any) -> String {
+    return L10n.tr("Localizable", "zebra_screen_onboarding_welcome_title", String(describing: p1))
+  }
 
   internal enum Action {
     /// Load more

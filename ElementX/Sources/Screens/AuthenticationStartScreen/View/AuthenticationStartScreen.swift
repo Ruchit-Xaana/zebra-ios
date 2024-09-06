@@ -30,6 +30,7 @@ struct AuthenticationStartScreen: View {
                 
                 content
                     .frame(width: geometry.size.width)
+                    .padding(.bottom, 60)
                     .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.hidden)
                 
                 buttons
@@ -42,17 +43,19 @@ struct AuthenticationStartScreen: View {
                     .frame(height: UIConstants.spacerHeight(in: geometry))
             }
             .frame(maxHeight: .infinity)
-            .safeAreaInset(edge: .bottom) {
-                Button {
-                    context.send(viewAction: .reportProblem)
-                } label: {
-                    Text(L10n.commonReportAProblem)
-                        .font(.compound.bodySM)
-                        .foregroundColor(.compound.textSecondary)
-                        .padding(.bottom)
-                }
-                .frame(width: geometry.size.width)
-            }
+            .padding(.bottom, 20)
+        
+            // .safeAreaInset(edge: .bottom) {
+            //     Button {
+            //         context.send(viewAction: .reportProblem)
+            //     } label: {
+            //         Text(L10n.commonReportAProblem)
+            //             .font(.compound.bodySM)
+            //             .foregroundColor(.compound.textSecondary)
+            //             .padding(.bottom)
+            //     }
+            //     .frame(width: geometry.size.width)
+            // }
         }
         .navigationBarHidden(true)
         .background {
@@ -73,13 +76,13 @@ struct AuthenticationStartScreen: View {
             Spacer()
             
             VStack(spacing: 8) {
-                Text(L10n.screenOnboardingWelcomeTitle)
+                Text(L10n.zebraScreenOnboardingWelcomeTitle(InfoPlistReader.main.productionAppName))
                     .font(.compound.headingLGBold)
-                    .foregroundColor(.compound.textPrimary)
+                    .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 Text(L10n.screenOnboardingWelcomeMessage(InfoPlistReader.main.productionAppName))
                     .font(.compound.bodyLG)
-                    .foregroundColor(.compound.textSecondary)
+                    .foregroundColor(.white)
                     .multilineTextAlignment(.center)
             }
             .padding()
@@ -95,16 +98,16 @@ struct AuthenticationStartScreen: View {
     /// The main action buttons.
     var buttons: some View {
         VStack(spacing: 16) {
-            if context.viewState.isQRCodeLoginEnabled {
-                Button { context.send(viewAction: .loginWithQR) } label: {
-                    Label(L10n.screenOnboardingSignInWithQrCode, icon: \.qrCode)
-                }
-                .buttonStyle(.compound(.primary))
-                .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.signInWithQr)
-            }
-            
+            // if context.viewState.isQRCodeLoginEnabled {
+            //     Button { context.send(viewAction: .loginWithQR) } label: {
+            //         Label(L10n.screenOnboardingSignInWithQrCode, icon: \.qrCode)
+            //     }
+            //     .buttonStyle(.compound(.primary))
+            //     .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.signInWithQr)
+            // }
             Button { context.send(viewAction: .loginManually) } label: {
-                Text(context.viewState.isQRCodeLoginEnabled ? L10n.screenOnboardingSignInManually : L10n.actionContinue)
+                // Text(context.viewState.isQRCodeLoginEnabled ? L10n.screenOnboardingSignInManually : L10n.actionContinue)
+                Text(L10n.actionContinue)
             }
             .buttonStyle(.compound(.primary))
             .accessibilityIdentifier(A11yIdentifiers.authenticationStartScreen.signIn)

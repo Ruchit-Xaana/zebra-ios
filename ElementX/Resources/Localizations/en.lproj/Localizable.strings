@@ -984,3 +984,4 @@
 "screen_signout_confirmation_dialog_title" = "Sign out";
 "screen_signout_preference_item" = "Sign out";
 "screen_waitlist_message_success" = "Welcome to %1$@!";
+"zebra_screen_onboarding_welcome_title" = "Welcome to %1$@!";
