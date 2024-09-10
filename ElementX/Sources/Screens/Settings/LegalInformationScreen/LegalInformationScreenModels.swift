@@ -23,6 +23,7 @@ struct LegalInformationScreenViewState: BindableState {
     let copyrightURL: URL
     let acceptableUseURL: URL
     let privacyURL: URL
+    let faqURL: URL
 }
 
 enum LegalInformationScreenViewAction { }

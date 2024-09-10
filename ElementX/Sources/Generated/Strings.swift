@@ -244,7 +244,7 @@ internal enum L10n {
   internal static var actionViewSource: String { return L10n.tr("Localizable", "action_view_source") }
   /// Yes
   internal static var actionYes: String { return L10n.tr("Localizable", "action_yes") }
-  /// About
+  /// Help & About
   internal static var commonAbout: String { return L10n.tr("Localizable", "common_about") }
   /// Acceptable use policy
   internal static var commonAcceptableUsePolicy: String { return L10n.tr("Localizable", "common_acceptable_use_policy") }
@@ -300,6 +300,8 @@ internal enum L10n {
   internal static var commonFaceIdIos: String { return L10n.tr("Localizable", "common_face_id_ios") }
   /// Failed
   internal static var commonFailed: String { return L10n.tr("Localizable", "common_failed") }
+  /// FAQ
+  internal static var commonFaq: String { return L10n.tr("Localizable", "common_faq") }
   /// Favourite
   internal static var commonFavourite: String { return L10n.tr("Localizable", "common_favourite") }
   /// Favourited

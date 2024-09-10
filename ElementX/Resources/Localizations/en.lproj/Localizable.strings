@@ -108,7 +108,7 @@
 "action.load_more" = "Load more";
 "banner.set_up_recovery.content" = "Generate a new recovery key that can be used to restore your encrypted message history in case you lose access to your devices.";
 "banner.set_up_recovery.title" = "Set up recovery";
-"common_about" = "About";
+"common_about" = "Help & About";
 "common_acceptable_use_policy" = "Acceptable use policy";
 "common_advanced_settings" = "Advanced settings";
 "common_analytics" = "Analytics";
@@ -120,6 +120,7 @@
 "common_call_started" = "Call started";
 "common_chat_backup" = "Chat backup";
 "common_copyright" = "Copyright";
+"common_faq"="FAQ";
 "common_creating_room" = "Creating room…";
 "common_current_user_left_room" = "Left room";
 "common_dark" = "Dark";

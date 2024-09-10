@@ -104,7 +104,7 @@ final class AppSettings {
         
     /// The default homeserver address used. This is intentionally a string without a scheme
     /// so that it can be passed to Rust as a ServerName for well-known discovery.
-    private(set) var defaultHomeserverAddress = "matrix.org"
+    private(set) var defaultHomeserverAddress = "dev-server.securezebra.com"
     
     /// The task identifier used for background app refresh. Also used in main target's the Info.plist
     let backgroundAppRefreshTaskIdentifier = "io.element.elementx.background.refresh"
@@ -119,6 +119,8 @@ final class AppSettings {
     let acceptableUseURL: URL = "https://element.io/acceptable-use-policy-terms"
     /// A URL that contains the app's Privacy Policy.
     let privacyURL: URL = "https://element.io/privacy"
+    /// A URL that contains page address to send FAQ's to Turium.Ai.
+    let faqURL: URL = "https://www.turium.ai/contact"
     /// An email address that should be used for support requests.
     let supportEmailAddress = "support@element.io"
     /// A URL where users can go read more about encryption in general.

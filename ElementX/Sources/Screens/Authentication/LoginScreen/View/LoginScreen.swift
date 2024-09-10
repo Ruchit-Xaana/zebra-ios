@@ -44,8 +44,12 @@ struct LoginScreen: View {
             .readableFrame()
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
+            .background(RoundedRectangle(cornerRadius: 12) // Background Shape
+                .fill(Color.compound.bgCanvasDefault) // Background color
+                .shadow(radius: 10))
+            .padding()
         }
-        .background(Color.compound.bgCanvasDefault.ignoresSafeArea())
+        .background(AuthenticationStartScreenBackgroundImage())
         .alert(item: $context.alertInfo)
     }
     

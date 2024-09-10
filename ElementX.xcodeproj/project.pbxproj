@@ -7254,7 +7254,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_DISPLAY_NAME = Zebra;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_APP_GROUP_IDENTIFIER)";
-				APP_NAME = ElementX;
+				APP_NAME = Zebra;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "colors/accent-color";
 				BASE_APP_GROUP_IDENTIFIER = io.element;
 				BASE_BUNDLE_IDENTIFIER = io.element.elementx;
@@ -7325,7 +7325,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APP_DISPLAY_NAME = Zebra;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_APP_GROUP_IDENTIFIER)";
-				APP_NAME = ElementX;
+				APP_NAME = Zebra;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "colors/accent-color";
 				BASE_APP_GROUP_IDENTIFIER = io.element;
 				BASE_BUNDLE_IDENTIFIER = io.element.elementx;
