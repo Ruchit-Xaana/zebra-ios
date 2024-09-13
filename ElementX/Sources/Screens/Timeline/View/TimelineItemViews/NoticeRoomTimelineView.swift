@@ -26,13 +26,23 @@ struct NoticeRoomTimelineView: View, TextBasedRoomTimelineViewProtocol {
             // adds additional padding so the spacing between the icon and text is inconsistent.
             
             // Spacing: 6 = label spacing - formatted text padding
-            
             Label {
-                if let attributedString = timelineItem.content.formattedBody {
-                    FormattedBodyText(attributedString: attributedString, additionalWhitespacesCount: timelineItem.additionalWhitespaces())
+                if case let .weather(weatherData) = timelineItem.noticeContentType {
+                    if let weatherData {
+                        // Text("Notice Content Type: \(weatherData)")
+                        //     .font(.subheadline)
+                        //     .foregroundColor(.secondary)
+                        WeatherWidget(weatherData: weatherData)
+                            .padding(.bottom, 12)
+                    }
                 } else {
-                    FormattedBodyText(text: timelineItem.content.body, additionalWhitespacesCount: timelineItem.additionalWhitespaces())
+                    if let attributedString = timelineItem.content.formattedBody {
+                        FormattedBodyText(attributedString: attributedString, additionalWhitespacesCount: timelineItem.additionalWhitespaces())
+                    } else {
+                        FormattedBodyText(text: timelineItem.content.body, additionalWhitespacesCount: timelineItem.additionalWhitespaces())
+                    }
                 }
+        
             } icon: {
                 CompoundIcon(\.info, size: .small, relativeTo: .compound.bodyLG)
                     .foregroundColor(.compound.iconSecondary)
