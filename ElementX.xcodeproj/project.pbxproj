@@ -575,6 +575,7 @@
 		804C15D8ADE0EA7A5268F58A /* OverridableAvatarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648DD1C10E4957CB791FE0B8 /* OverridableAvatarImage.swift */; };
 		80DEA2A4B20F9E279EAE6B2B /* UserProfile+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD01F7FC2BBAC7351948595 /* UserProfile+Mock.swift */; };
 		80F6C8EFCA4564B67F0D34B0 /* DeactivateAccountScreenViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F75B3E9F99864048A422A /* DeactivateAccountScreenViewModelTests.swift */; };
+		815D39D9305E65D6635FD51A /* WeatherWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8EA620EE0868C884F8C9D /* WeatherWidgetView.swift */; };
 		81A7C020CB5F6232242A8414 /* UserSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36C0A6D59717193F49EA986 /* UserSessionTests.swift */; };
 		8285FF4B2C2331758C437FF7 /* ReportContentScreenViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713B48DBF65DE4B0DD445D66 /* ReportContentScreenViewModelProtocol.swift */; };
 		828EA5009557C2B9DCD4CA0F /* UserDiscoverySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D071F86CD47582B9196C9D16 /* UserDiscoverySection.swift */; };
@@ -1010,6 +1011,7 @@
 		E3E1E255DC8CB34BD8573E0D /* UserIndicatorControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12D3B1BCF920880CA8BBB6B /* UserIndicatorControllerProtocol.swift */; };
 		E45C9FA22BC13B477FD3B4AC /* EmojiDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D99730313BEBF08CDE81EE3 /* EmojiDetection.swift */; };
 		E468CC731C3F4D678499E52F /* LAContextMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA5A62DA4B543827FF82354 /* LAContextMock.swift */; };
+		E47C3556867EAF92E3FEE103 /* NoticeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6955EDB709CC7C996B5FB64D /* NoticeCategory.swift */; };
 		E481C8FDCB6C089963C95344 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = BC01130651CB23340B899032 /* DeviceKit */; };
 		E49F74BD93230BDEFFE5EA51 /* RoomNotificationSettingsScreenViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D295F0081084F38DB20893 /* RoomNotificationSettingsScreenViewModelTests.swift */; };
 		E4B07FF075C99D04D9AF792D /* AppLockSetupPINScreenModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B410B32B72C90BF94E481F33 /* AppLockSetupPINScreenModels.swift */; };
@@ -1649,6 +1651,7 @@
 		68010886142843705E342645 /* ProgressMaskModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressMaskModifier.swift; sourceTree = "<group>"; };
 		6861FE915C7B5466E6962BBA /* StartChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChatScreen.swift; sourceTree = "<group>"; };
 		693E16574C6F7F9FA1015A8C /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		6955EDB709CC7C996B5FB64D /* NoticeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCategory.swift; sourceTree = "<group>"; };
 		69CB8242D69B7E4D0B32E18D /* AggregatedReactionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregatedReactionMock.swift; sourceTree = "<group>"; };
 		69D42EE0102D2857933625DD /* CreateRoomViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewModelTests.swift; sourceTree = "<group>"; };
 		6A580295A56B55A856CC4084 /* InfoPlistReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPlistReader.swift; sourceTree = "<group>"; };
@@ -2171,6 +2174,7 @@
 		E321E840DCC63790049984F4 /* ElementCallServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementCallServiceMock.swift; sourceTree = "<group>"; };
 		E34685D186453E429ADEE58E /* ClientProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientProtocolTests.swift; sourceTree = "<group>"; };
 		E36CB905A2B9EC2C92A2DA7C /* KeychainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainController.swift; sourceTree = "<group>"; };
+		E3A8EA620EE0868C884F8C9D /* WeatherWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidgetView.swift; sourceTree = "<group>"; };
 		E3B97591B2D3D4D67553506D /* AnalyticsClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsClientProtocol.swift; sourceTree = "<group>"; };
 		E4103AB4340F2974D690A12A /* CallScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallScreen.swift; sourceTree = "<group>"; };
 		E413F4CBD7BF0588F394A9DD /* RoomDetailsEditScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDetailsEditScreenViewModel.swift; sourceTree = "<group>"; };
@@ -4176,6 +4180,7 @@
 				B2B5EDCD05D50BA9B815C66C /* ImageRoomTimelineItemContent.swift */,
 				1B2AC540DE619B36832A5DB5 /* LocationRoomTimelineItem.swift */,
 				CD6613DE16AD26B3A74DA1F5 /* LocationRoomTimelineItemContent.swift */,
+				6955EDB709CC7C996B5FB64D /* NoticeCategory.swift */,
 				421E716C521F96D24ECE69B3 /* NoticeRoomTimelineItem.swift */,
 				1FD51B4D5173F7FC886F5360 /* NoticeRoomTimelineItemContent.swift */,
 				90A55430639712CFACA34F43 /* TextRoomTimelineItem.swift */,
@@ -5021,6 +5026,7 @@
 				44ECC9D66400727DFFEE12E8 /* TimelineStartRoomTimelineView.swift */,
 				C9E535B3388755B65C34CD10 /* UnsupportedRoomTimelineView.swift */,
 				ED0CBEAB5F796BEFBAF7BB6A /* VideoRoomTimelineView.swift */,
+				DA7211E10BE96AFF4FF6BFB3 /* Widgets */,
 			);
 			path = TimelineItemViews;
 			sourceTree = "<group>";
@@ -5122,6 +5128,14 @@
 				D8F5F9E02B1AB5350B1815E7 /* TimelineStartRoomTimelineItem.swift */,
 			);
 			path = Virtual;
+			sourceTree = "<group>";
+		};
+		DA7211E10BE96AFF4FF6BFB3 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				E3A8EA620EE0868C884F8C9D /* WeatherWidgetView.swift */,
+			);
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 		DAB7DC51866A6D1B51BDC3A2 /* RoomChangePermissionsScreen */ = {
@@ -6571,6 +6585,7 @@
 				93BAF04D9CCBC0A8841414D0 /* NetworkMonitor.swift in Sources */,
 				96B3606E30F824095B1DD022 /* NetworkMonitorMock.swift in Sources */,
 				865DD5CA474C6AE6C2BC008E /* NetworkMonitorProtocol.swift in Sources */,
+				E47C3556867EAF92E3FEE103 /* NoticeCategory.swift in Sources */,
 				0C58A846F61949B1D545D661 /* NoticeRoomTimelineItem.swift in Sources */,
 				9408CE8B8865C0C8DD4C9869 /* NoticeRoomTimelineItemContent.swift in Sources */,
 				7F825CBD857D65DC986087BA /* NoticeRoomTimelineView.swift in Sources */,
@@ -7005,6 +7020,7 @@
 				F0C2C49D707839F5273BFC6D /* WebRegistrationScreenModels.swift in Sources */,
 				9FC820C410ED733CE6FC6616 /* WebRegistrationScreenViewModel.swift in Sources */,
 				66357ECB73B1290E5490A012 /* WebRegistrationScreenViewModelProtocol.swift in Sources */,
+				815D39D9305E65D6635FD51A /* WeatherWidgetView.swift in Sources */,
 				08CB4BD12CEEDE6AAE4A18DD /* WindowManager.swift in Sources */,
 				AE5AAD9E32511544FDFA5560 /* WindowManagerProtocol.swift in Sources */,
 			);
@@ -7348,9 +7364,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_DISPLAY_NAME = "Element X";
+				APP_DISPLAY_NAME = Zebra;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_APP_GROUP_IDENTIFIER)";
-				APP_NAME = ElementX;
+				APP_NAME = Zebra;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "colors/accent-color";
 				BASE_APP_GROUP_IDENTIFIER = io.element;
 				BASE_BUNDLE_IDENTIFIER = io.element.elementx;
@@ -7405,7 +7421,7 @@
 				MARKETING_VERSION = 1.8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCTION_APP_NAME = Element;
+				PRODUCTION_APP_NAME = Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -7419,9 +7435,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_DISPLAY_NAME = "Element X";
+				APP_DISPLAY_NAME = Zebra;
 				APP_GROUP_IDENTIFIER = "group.$(BASE_APP_GROUP_IDENTIFIER)";
-				APP_NAME = ElementX;
+				APP_NAME = Zebra;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "colors/accent-color";
 				BASE_APP_GROUP_IDENTIFIER = io.element;
 				BASE_BUNDLE_IDENTIFIER = io.element.elementx;
@@ -7483,7 +7499,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCTION_APP_NAME = Element;
+				PRODUCTION_APP_NAME = Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;

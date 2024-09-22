@@ -55,12 +55,12 @@ struct ServerConfirmationScreen: View {
             .accessibilityIdentifier(A11yIdentifiers.serverConfirmationScreen.continue)
             .disabled(!context.viewState.canContinue)
             
-            Button { context.send(viewAction: .changeServer) } label: {
-                Text(L10n.screenServerConfirmationChangeServer)
-                    .font(.compound.bodyLGSemibold)
-                    .padding(14)
-            }
-            .accessibilityIdentifier(A11yIdentifiers.serverConfirmationScreen.changeServer)
+            // Button { context.send(viewAction: .changeServer) } label: {
+            //     Text(L10n.screenServerConfirmationChangeServer)
+            //         .font(.compound.bodyLGSemibold)
+            //         .padding(14)
+            // }
+            // .accessibilityIdentifier(A11yIdentifiers.serverConfirmationScreen.changeServer)
         }
     }
 }

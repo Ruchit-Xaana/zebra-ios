@@ -260,7 +260,7 @@ internal enum L10n {
   internal static var bannerMigrateToNativeSlidingSyncForceLogoutTitle: String { return L10n.tr("Localizable", "banner_migrate_to_native_sliding_sync_force_logout_title") }
   /// Upgrade available
   internal static var bannerMigrateToNativeSlidingSyncTitle: String { return L10n.tr("Localizable", "banner_migrate_to_native_sliding_sync_title") }
-  /// About
+  /// Help & About
   internal static var commonAbout: String { return L10n.tr("Localizable", "common_about") }
   /// Acceptable use policy
   internal static var commonAcceptableUsePolicy: String { return L10n.tr("Localizable", "common_acceptable_use_policy") }
@@ -316,6 +316,8 @@ internal enum L10n {
   internal static var commonFaceIdIos: String { return L10n.tr("Localizable", "common_face_id_ios") }
   /// Failed
   internal static var commonFailed: String { return L10n.tr("Localizable", "common_failed") }
+  /// FAQ
+  internal static var commonFaq: String { return L10n.tr("Localizable", "common_faq") }
   /// Favourite
   internal static var commonFavourite: String { return L10n.tr("Localizable", "common_favourite") }
   /// Favourited
@@ -2387,6 +2389,10 @@ internal enum L10n {
   }
   /// Check UnifiedPush
   internal static var troubleshootNotificationsTestUnifiedPushTitle: String { return L10n.tr("Localizable", "troubleshoot_notifications_test_unified_push_title") }
+  /// Welcome to %1$@!
+  internal static func zebraScreenOnboardingWelcomeTitle(_ p1: Any) -> String {
+    return L10n.tr("Localizable", "zebra_screen_onboarding_welcome_title", String(describing: p1))
+  }
 
   internal enum Action {
     /// Load more

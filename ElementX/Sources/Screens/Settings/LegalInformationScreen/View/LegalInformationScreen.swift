@@ -15,12 +15,14 @@ struct LegalInformationScreen: View {
     var body: some View {
         Form {
             Section {
-                ListRow(label: .plain(title: L10n.commonCopyright),
-                        kind: .button { openURL(context.viewState.copyrightURL) })
-                ListRow(label: .plain(title: L10n.commonAcceptableUsePolicy),
-                        kind: .button { openURL(context.viewState.acceptableUseURL) })
-                ListRow(label: .plain(title: L10n.commonPrivacyPolicy),
-                        kind: .button { openURL(context.viewState.privacyURL) })
+                ListRow(label: .plain(title: L10n.commonFaq),
+                        kind: .button { openURL(context.viewState.faqURL) })
+                // ListRow(label: .plain(title: L10n.commonCopyright),
+                //         kind: .button { openURL(context.viewState.copyrightURL) })
+                // ListRow(label: .plain(title: L10n.commonAcceptableUsePolicy),
+                //         kind: .button { openURL(context.viewState.acceptableUseURL) })
+                // ListRow(label: .plain(title: L10n.commonPrivacyPolicy),
+                //         kind: .button { openURL(context.viewState.privacyURL) })
             }
         }
         .compoundList()

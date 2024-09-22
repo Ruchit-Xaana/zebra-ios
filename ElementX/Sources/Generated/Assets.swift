@@ -29,6 +29,7 @@ internal enum Asset {
     internal static let backgroundColor = ColorAsset(name: "colors/background-color")
     internal static let brandColor = ColorAsset(name: "colors/brand-color")
     internal static let grabber = ColorAsset(name: "colors/grabber")
+    internal static let weatherBackground = ColorAsset(name: "colors/weather-background")
   }
   internal enum Images {
     internal static let appLogo = ImageAsset(name: "images/app-logo")
@@ -46,6 +47,7 @@ internal enum Asset {
     internal static let notificationsPromptGraphic = ImageAsset(name: "images/notifications-prompt-graphic")
     internal static let pollWinner = ImageAsset(name: "images/poll-winner")
     internal static let waitingGradient = ImageAsset(name: "images/waiting-gradient")
+    internal static let zebraLogo = ImageAsset(name: "images/zebra-logo")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

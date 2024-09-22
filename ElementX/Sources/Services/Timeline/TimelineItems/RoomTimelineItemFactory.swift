@@ -334,6 +334,7 @@ struct RoomTimelineItemFactory: RoomTimelineItemFactoryProtocol {
                                isThreaded: isThreaded,
                                sender: eventItemProxy.sender,
                                content: buildNoticeTimelineItemContent(messageContent),
+                               debugInfo: buildNoticeContentJson(eventItemProxy.debugInfo),
                                replyDetails: buildReplyToDetailsFromDetailsIfAvailable(details: messageTimelineItem.inReplyTo()),
                                properties: RoomTimelineItemProperties(isEdited: messageTimelineItem.isEdited(),
                                                                       reactions: aggregateReactions(eventItemProxy.reactions),
@@ -577,6 +578,18 @@ struct RoomTimelineItemFactory: RoomTimelineItemFactoryProtocol {
         let formattedBody = (htmlBody != nil ? attributedStringBuilder.fromHTML(htmlBody) : attributedStringBuilder.fromPlain(messageContent.body))
         
         return .init(body: messageContent.body, formattedBody: formattedBody)
+    }
+
+    private func buildNoticeContentJson(_ debugInfo: TimelineItemDebugInfo) -> String? {
+        // Initialize a JSONEncoder
+        let encoder = JSONEncoder()
+        // Optionally, configure the encoder (e.g., date formatting)
+        encoder.outputFormatting = .prettyPrinted
+        // JSON string to encode
+        guard let jsonToEncode = debugInfo.latestEditJSON ?? debugInfo.originalJSON else {
+            return nil
+        }
+        return jsonToEncode
     }
     
     private func buildEmoteTimelineItemContent(senderDisplayName: String?, senderID: String, messageContent: EmoteMessageContent) -> EmoteRoomTimelineItemContent {

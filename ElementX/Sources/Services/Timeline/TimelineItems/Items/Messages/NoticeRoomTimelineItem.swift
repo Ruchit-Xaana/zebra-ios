@@ -18,10 +18,12 @@ struct NoticeRoomTimelineItem: TextBasedRoomTimelineItem, Equatable {
     let sender: TimelineItemSender
     
     let content: NoticeRoomTimelineItemContent
+
+    var debugInfo: String?
     
     var replyDetails: TimelineItemReplyDetails?
     
-    var properties = RoomTimelineItemProperties()
+    var properties: RoomTimelineItemProperties
     
     var body: String {
         content.body
@@ -29,5 +31,25 @@ struct NoticeRoomTimelineItem: TextBasedRoomTimelineItem, Equatable {
     
     var contentType: EventBasedMessageTimelineItemContentType {
         .notice(content)
+    }
+
+    // Compute the noticeContentType in the initializer
+    var noticeContentType: NoticeCategoryType
+    
+    init(id: TimelineItemIdentifier, timestamp: String, isOutgoing: Bool, isEditable: Bool, canBeRepliedTo: Bool, isThreaded: Bool, sender: TimelineItemSender, content: NoticeRoomTimelineItemContent, debugInfo: String? = nil, replyDetails: TimelineItemReplyDetails? = nil, properties: RoomTimelineItemProperties = RoomTimelineItemProperties()) {
+        self.id = id
+        self.timestamp = timestamp
+        self.isOutgoing = isOutgoing
+        self.isEditable = isEditable
+        self.canBeRepliedTo = canBeRepliedTo
+        self.isThreaded = isThreaded
+        self.sender = sender
+        self.content = content
+        self.debugInfo = debugInfo
+        self.replyDetails = replyDetails
+        self.properties = properties
+        
+        // Computing noticeContentType in the initializer
+        noticeContentType = NoticeCategoryType.computeContentType(debugInfo)
     }
 }

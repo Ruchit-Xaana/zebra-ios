@@ -1,31 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "ipad-light.png",
+      "filename" : "ipad-zebra.png",
       "idiom" : "universal"
     },
     {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "ipad-dark.png",
-      "idiom" : "universal"
-    },
-    {
-      "filename" : "iphone-light.png",
-      "idiom" : "iphone"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "iphone-dark.png",
+      "filename" : "iphone-zebra.png",
       "idiom" : "iphone"
     }
   ],
