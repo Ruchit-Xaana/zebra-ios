@@ -1,17 +1,8 @@
 //
-// Copyright 2023 New Vector Ltd
+// Copyright 2023, 2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import Combine
@@ -358,6 +349,11 @@ class RoomFlowCoordinator: FlowCoordinatorProtocol {
             case (.roomDetails, .presentRoomMemberDetails(let userID)):
                 return .roomMemberDetails(userID: userID, previousState: fromState)
             
+            case (.room, .presentResolveSendFailure):
+                return .resolveSendFailure
+            case (.resolveSendFailure, .dismissResolveSendFailure):
+                return .room
+            
             // Child flow
             
             case (_, .startChildFlow(let roomID, _, _)):
@@ -508,6 +504,11 @@ class RoomFlowCoordinator: FlowCoordinatorProtocol {
             case (.roomMemberDetails, .dismissUserProfile, .roomDetails):
                 break
             
+            case (.room, .presentResolveSendFailure(let failure, let itemID), .resolveSendFailure):
+                presentResolveSendFailure(failure: failure, itemID: itemID)
+            case (.resolveSendFailure, .dismissResolveSendFailure, .room):
+                break
+            
             // Child flow
             case (_, .startChildFlow(let roomID, let via, let entryPoint), .presentingChild):
                 Task { await self.startChildFlow(for: roomID, via: via, entryPoint: entryPoint) }
@@ -632,6 +633,8 @@ class RoomFlowCoordinator: FlowCoordinatorProtocol {
                     actionsSubject.send(.presentCallScreen(roomProxy: roomProxy))
                 case .presentPinnedEventsTimeline:
                     stateMachine.tryEvent(.presentPinnedEventsTimeline)
+                case .presentResolveSendFailure(failure: let failure, itemID: let itemID):
+                    stateMachine.tryEvent(.presentResolveSendFailure(failure: failure, itemID: itemID))
                 }
             }
             .store(in: &cancellables)
@@ -1360,6 +1363,25 @@ class RoomFlowCoordinator: FlowCoordinatorProtocol {
         coordinator.start()
     }
     
+    private func presentResolveSendFailure(failure: TimelineItemSendFailure.VerifiedUser, itemID: TimelineItemIdentifier) {
+        let coordinator = ResolveVerifiedUserSendFailureScreenCoordinator(parameters: .init(failure: failure,
+                                                                                            itemID: itemID,
+                                                                                            roomProxy: roomProxy))
+        coordinator.actionsPublisher.sink { [weak self] action in
+            guard let self else { return }
+            
+            switch action {
+            case .dismiss:
+                navigationStackCoordinator.setSheetCoordinator(nil)
+            }
+        }
+        .store(in: &cancellables)
+        
+        navigationStackCoordinator.setSheetCoordinator(coordinator) { [weak self] in
+            self?.stateMachine.tryEvent(.dismissResolveSendFailure)
+        }
+    }
+    
     // MARK: - Child Flow
     
     private func startChildFlow(for roomID: String, via: [String], entryPoint: RoomFlowCoordinatorEntryPoint) async {
@@ -1434,6 +1456,7 @@ private extension RoomFlowCoordinator {
         case pollsHistoryForm
         case rolesAndPermissions
         case pinnedEventsTimeline(previousState: PinnedEventsTimelineSource)
+        case resolveSendFailure
         
         /// A child flow is in progress.
         case presentingChild(childRoomID: String, previousState: State)
@@ -1505,6 +1528,9 @@ private extension RoomFlowCoordinator {
         
         case presentPinnedEventsTimeline
         case dismissPinnedEventsTimeline
+        
+        case presentResolveSendFailure(failure: TimelineItemSendFailure.VerifiedUser, itemID: TimelineItemIdentifier)
+        case dismissResolveSendFailure
         
         // Child room flow events
         case startChildFlow(roomID: String, via: [String], entryPoint: RoomFlowCoordinatorEntryPoint)

@@ -1,17 +1,8 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import CallKit
@@ -41,7 +32,7 @@ import UserNotifications
 // We keep a global `environment` singleton to ensure that our app context,
 // database, logging, etc. are only ever setup once per *process*
 
-private let settings: NSESettingsProtocol = AppSettings()
+private let settings: CommonSettingsProtocol = AppSettings()
 private let notificationContentBuilder = NotificationContentBuilder(messageEventStringBuilder: RoomMessageEventStringBuilder(attributedStringBuilder: AttributedStringBuilder(mentionBuilder: PlainMentionBuilder()), prefix: .none))
 private let keychainController = KeychainController(service: .sessions,
                                                     accessGroup: InfoPlistReader.main.keychainAccessGroupIdentifier)
@@ -81,14 +72,17 @@ class NotificationServiceExtension: UNNotificationServiceExtension {
         MXLog.info("\(tag) Payload came: \(request.content.userInfo)")
         
         Self.serialQueue.sync {
-            if Self.userSession == nil {
+            // If the session directories have changed, the user has logged out and back in (even if they entered the same user ID).
+            // We can't do this comparison with the access token of the existing session here due to token refresh when using OIDC.
+            if Self.userSession == nil || Self.userSession?.sessionDirectories != credentials.restorationToken.sessionDirectories {
                 // This function might be run concurrently and from different processes
                 // It's imperative that we create **at most** one UserSession/Client per process
                 Task.synchronous { [appHooks] in
                     do {
                         Self.userSession = try await NSEUserSession(credentials: credentials,
                                                                     clientSessionDelegate: keychainController,
-                                                                    appHooks: appHooks)
+                                                                    appHooks: appHooks,
+                                                                    appSettings: settings)
                     } catch {
                         MXLog.error("Failed creating user session with error: \(error)")
                     }

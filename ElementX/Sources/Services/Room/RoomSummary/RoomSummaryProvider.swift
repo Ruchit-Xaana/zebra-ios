@@ -1,17 +1,8 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import Combine
@@ -36,6 +27,7 @@ class RoomSummaryProvider: RoomSummaryProviderProtocol {
     private var roomList: RoomListProtocol?
     
     private var cancellables = Set<AnyCancellable>()
+    private var roomListServiceStateCancellable: AnyCancellable?
     private var listUpdatesSubscriptionResult: RoomListEntriesWithDynamicAdaptersResult?
     private var stateUpdatesTaskHandle: TaskHandle?
     
@@ -183,8 +175,6 @@ class RoomSummaryProvider: RoomSummaryProviderProtocol {
             .sink { [weak self] roomIDs in
                 guard let self else { return }
                 
-                MXLog.debug("\(self.name): Updating subscriptions for visible rooms: \(roomIDs)")
-                
                 do {
                     try roomListService.subscribeToRooms(roomIds: roomIDs,
                                                          settings: .init(requiredState: SlidingSyncConstants.defaultRequiredState,
@@ -204,13 +194,9 @@ class RoomSummaryProvider: RoomSummaryProviderProtocol {
             span.exit()
         }
         
-        MXLog.info("\(name): Received \(diffs.count) diffs")
-        
         rooms = diffs.reduce(rooms) { currentItems, diff in
             processDiff(diff, on: currentItems)
         }
-        
-        MXLog.info("Finished processing room list diffs")
     }
     
     private func processDiff(_ diff: RoomListEntriesUpdate, on currentItems: [RoomSummary]) -> [RoomSummary] {

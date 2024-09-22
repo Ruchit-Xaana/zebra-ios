@@ -1,17 +1,8 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import Foundation
@@ -19,10 +10,17 @@ import MatrixRustSDK
 
 struct RestorationToken: Equatable {
     let session: MatrixRustSDK.Session
-    let sessionDirectory: URL
-    let cacheDirectory: URL
+    let sessionDirectories: SessionDirectories
     let passphrase: String?
     let pusherNotificationClientIdentifier: String?
+    
+    enum CodingKeys: CodingKey {
+        case session
+        case sessionDirectory
+        case cacheDirectory
+        case passphrase
+        case pusherNotificationClientIdentifier
+    }
 }
 
 extension RestorationToken: Codable {
@@ -44,10 +42,18 @@ extension RestorationToken: Codable {
         }
         
         self = try .init(session: session,
-                         sessionDirectory: sessionDirectories.dataDirectory,
-                         cacheDirectory: sessionDirectories.cacheDirectory,
+                         sessionDirectories: sessionDirectories,
                          passphrase: container.decodeIfPresent(String.self, forKey: .passphrase),
                          pusherNotificationClientIdentifier: container.decodeIfPresent(String.self, forKey: .pusherNotificationClientIdentifier))
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(session, forKey: .session)
+        try container.encode(sessionDirectories.dataDirectory, forKey: .sessionDirectory)
+        try container.encode(sessionDirectories.cacheDirectory, forKey: .cacheDirectory)
+        try container.encode(passphrase, forKey: .passphrase)
+        try container.encode(pusherNotificationClientIdentifier, forKey: .pusherNotificationClientIdentifier)
     }
 }
 

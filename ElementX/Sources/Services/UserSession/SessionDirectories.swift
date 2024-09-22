@@ -1,17 +1,8 @@
 //
-// Copyright 2024 New Vector Ltd
+// Copyright 2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import Foundation
@@ -22,6 +13,50 @@ struct SessionDirectories: Hashable, Codable {
     
     var dataPath: String { dataDirectory.path(percentEncoded: false) }
     var cachePath: String { cacheDirectory.path(percentEncoded: false) }
+    
+    // MARK: Data Management
+    
+    /// Removes the directories from disk if they have been created.
+    func delete() {
+        do {
+            if FileManager.default.directoryExists(at: dataDirectory) {
+                try FileManager.default.removeItem(at: dataDirectory)
+            }
+        } catch {
+            MXLog.failure("Failed deleting the session data: \(error)")
+        }
+        do {
+            if FileManager.default.directoryExists(at: cacheDirectory) {
+                try FileManager.default.removeItem(at: cacheDirectory)
+            }
+        } catch {
+            MXLog.failure("Failed deleting the session caches: \(error)")
+        }
+    }
+    
+    /// Deletes the Rust state store and event cache data, leaving the crypto store and both
+    /// session directories in place along with any other data that may have been written in them.
+    func deleteTransientUserData() {
+        do {
+            let prefix = "matrix-sdk-state"
+            try deleteFiles(at: dataDirectory, with: prefix)
+        } catch {
+            MXLog.failure("Failed clearing state store: \(error)")
+        }
+        do {
+            let prefix = "matrix-sdk-event-cache"
+            try deleteFiles(at: cacheDirectory, with: prefix)
+        } catch {
+            MXLog.failure("Failed clearing event cache store: \(error)")
+        }
+    }
+    
+    private func deleteFiles(at url: URL, with prefix: String) throws {
+        let sessionDirectoryContents = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+        for url in sessionDirectoryContents where url.lastPathComponent.hasPrefix(prefix) {
+            try FileManager.default.removeItem(at: url)
+        }
+    }
 }
 
 extension SessionDirectories {
@@ -42,6 +77,12 @@ extension SessionDirectories {
     init(dataDirectory: URL) {
         self.dataDirectory = dataDirectory
         cacheDirectory = .cachesBaseDirectory.appending(component: dataDirectory.lastPathComponent)
+    }
+}
+
+extension SessionDirectories: CustomStringConvertible {
+    var description: String {
+        "Data: \(dataPath) Caches: \(cachePath)"
     }
 }
 

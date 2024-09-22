@@ -1,13 +1,13 @@
 {
-  "originHash" : "1b1fb14b1ac1438c44ffd2f0151af65c83018d71b8674cd7f13ec21abeb31bcd",
+  "originHash" : "52385e2a478cc9455693d0b93dc33b988ac1d4742acceeaee288944dff8b78e0",
   "pins" : [
     {
       "identity" : "compound-design-tokens",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/element-hq/compound-design-tokens",
       "state" : {
-        "revision" : "b9723186abc3623c9648b1500c6e3d56e4571179",
-        "version" : "1.7.0"
+        "revision" : "2af7bb571eb30cbfbd67cdda6617500507ef46aa",
+        "version" : "1.8.0"
       }
     },
     {
@@ -15,7 +15,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/element-hq/compound-ios",
       "state" : {
-        "revision" : "ab79d0cc5e5bb2ef3624b76c99471e414c12e8da"
+        "revision" : "a9270392b3269ef072c47dea623815a9fb87311d"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/matrix-org/matrix-analytics-events",
       "state" : {
-        "revision" : "de0cac487e5e7f607ee17045882204c91585461f",
-        "version" : "0.23.1"
+        "revision" : "c9b40120a5f7b8ce1bab3f09f8417fdc9407f006",
+        "version" : "0.25.0"
       }
     },
     {
@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/element-hq/matrix-rust-components-swift",
       "state" : {
-        "revision" : "343d7045a0ad6fe508728f624a02698e679327fb",
-        "version" : "1.0.44"
+        "revision" : "8560ffccb5680719a2fd6376292bf2f9f94658fe",
+        "version" : "1.0.51"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BarredEwe/Prefire",
       "state" : {
-        "revision" : "237f4005c81f74d5359eddb534d2d10925ef2787",
-        "version" : "2.8.0"
+        "revision" : "0b7b6e6fe98af7e12b1440ca8fe81b3033ecf873",
+        "version" : "2.9.0"
       }
     },
     {
@@ -248,8 +248,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
       "state" : {
-        "revision" : "c097f955b4e724690f0fc8ffb7a6d4b881c9c4e3",
-        "version" : "1.17.2"
+        "revision" : "6d932a79e7173b275b96c600c86c603cf84f153c",
+        "version" : "1.17.4"
       }
     },
     {

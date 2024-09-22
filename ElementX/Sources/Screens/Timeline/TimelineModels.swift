@@ -1,17 +1,8 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import Combine
@@ -30,6 +21,7 @@ enum TimelineViewModelAction {
     case tappedOnSenderDetails(userID: String)
     case displayMessageForwarding(forwardingItem: MessageForwardingItem)
     case displayLocation(body: String, geoURI: GeoURI, description: String?)
+    case displayResolveSendFailure(failure: TimelineItemSendFailure.VerifiedUser, itemID: TimelineItemIdentifier)
     case composer(action: TimelineComposerAction)
     case hasScrolled(direction: ScrollDirection)
     case viewInRoomTimeline(eventID: String)
@@ -80,6 +72,7 @@ enum TimelineViewAction {
     case hasSwitchedTimeline
     
     case hasScrolled(direction: ScrollDirection)
+    case setOpenURLAction(OpenURLAction)
 }
 
 enum TimelineComposerAction {
@@ -108,6 +101,9 @@ struct TimelineViewState: BindableState {
     // The `pinnedEventIDs` are used only to determine if an item is already pinned or not.
     // It's updated from the room info, so it's faster than using the timeline
     var pinnedEventIDs: Set<String> = []
+    
+    /// an openURL closure which opens URLs first using the App's environment rather than skipping out to external apps
+    var openURL: OpenURLAction?
     
     var bindings: TimelineViewStateBindings
     

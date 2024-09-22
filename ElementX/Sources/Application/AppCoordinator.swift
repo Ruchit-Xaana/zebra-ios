@@ -1,17 +1,8 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import AnalyticsEvents
@@ -41,7 +32,8 @@ class AppCoordinator: AppCoordinatorProtocol, AuthenticationFlowCoordinatorDeleg
     private var userSession: UserSessionProtocol? {
         didSet {
             userSessionObserver?.cancel()
-            if userSession != nil {
+            if let userSession {
+                userSession.clientProxy.roomsToAwait = storedRoomsToAwait
                 configureElementCallService()
                 configureNotificationManager()
                 observeUserSessionChanges()
@@ -66,6 +58,7 @@ class AppCoordinator: AppCoordinatorProtocol, AuthenticationFlowCoordinatorDeleg
 
     private let appRouteURLParser: AppRouteURLParser
     @Consumable private var storedAppRoute: AppRoute?
+    private var storedRoomsToAwait: Set<String> = []
 
     init(appDelegate: AppDelegate) {
         let appHooks = AppHooks()
@@ -312,6 +305,14 @@ class AppCoordinator: AppCoordinatorProtocol, AuthenticationFlowCoordinatorDeleg
             return
         }
         
+        if content.categoryIdentifier == NotificationConstants.Category.invite {
+            if let userSession {
+                userSession.clientProxy.roomsToAwait.insert(roomID)
+            } else {
+                storedRoomsToAwait.insert(roomID)
+            }
+        }
+        
         handleAppRoute(.room(roomID: roomID, via: []))
     }
     
@@ -364,20 +365,6 @@ class AppCoordinator: AppCoordinatorProtocol, AuthenticationFlowCoordinatorDeleg
         guard oldVersion != newVersion else { return }
         
         MXLog.info("The app was upgraded from \(oldVersion) to \(newVersion)")
-        
-        if oldVersion < Version(1, 1, 0) {
-            MXLog.info("Migrating to v1.1.0, signing out the user.")
-            // Version 1.1.0 switched the Rust crypto store to SQLite
-            // There are no migrations in place so we need to sign the user out
-            wipeUserData()
-        }
-        
-        if oldVersion < Version(1, 1, 7) {
-            MXLog.info("Migrating to v1.1.7, marking accounts as migrated.")
-            for userID in userSessionStore.userIDs {
-                appSettings.migratedAccounts[userID] = true
-            }
-        }
         
         if oldVersion < Version(1, 6, 0) {
             MXLog.info("Migrating to v1.6.0, marking identity confirmation onboarding as ran.")
@@ -666,6 +653,8 @@ class AppCoordinator: AppCoordinatorProtocol, AuthenticationFlowCoordinatorDeleg
             .sink { [weak self] action in
                 guard let self else { return }
                 switch action {
+                case .pictureInPictureIsAvailable:
+                    break
                 case .pictureInPictureStarted, .pictureInPictureStopped:
                     // Don't allow PiP when signed out - the user could login at which point we'd
                     // need to hand over the call from here to the user session flow coordinator.

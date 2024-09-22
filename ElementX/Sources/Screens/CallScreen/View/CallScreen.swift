@@ -1,17 +1,8 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import AVKit
@@ -98,7 +89,7 @@ private struct CallView: UIViewRepresentable {
             
             super.init()
             
-            DispatchQueue.main.async { // Avoid `Publishing changes from within view update warnings`
+            DispatchQueue.main.async { // Avoid `Publishing changes from within view update` warnings
                 viewModelContext.javaScriptEvaluator = self.evaluateJavaScript
                 viewModelContext.requestPictureInPictureHandler = self.requestPictureInPicture
             }
@@ -137,6 +128,7 @@ private struct CallView: UIViewRepresentable {
                                                                                                    contentViewController: pictureInPictureViewController))
                 pictureInPictureController.delegate = self
                 self.pictureInPictureController = pictureInPictureController
+                viewModelContext.send(viewAction: .pictureInPictureIsAvailable(pictureInPictureController))
             }
         }
         
@@ -228,6 +220,18 @@ private struct CallView: UIViewRepresentable {
                 // We move the view via the delegate so it works when you background the app without calling requestPictureInPicture
                 pictureInPictureViewController.view.addMatchedSubview(webView)
                 _ = try? await evaluateJavaScript("controls.enablePip()")
+            }
+        }
+        
+        nonisolated func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+            Task { @MainActor in
+                // Double check that the controller is definitely showing a page that supports picture in picture.
+                // This is necessary as it doesn't get checked when backgrounding the app or tapping a notification.
+                guard case .success(true) = await webViewCanEnterPictureInPicture() else {
+                    MXLog.error("Picture in picture started on a webpage that doesn't support it. Ending the call.")
+                    viewModelContext?.send(viewAction: .endCall)
+                    return
+                }
             }
         }
         

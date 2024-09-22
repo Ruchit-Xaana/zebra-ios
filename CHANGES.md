@@ -1,3 +1,113 @@
+## Changes in 1.8.3 (2024-09-19)
+
+### What's Changed
+
+✨ Features
+* crypto: Add configuration flag to enable invisible crypto by @BillCarsonFr in https://github.com/element-hq/element-x-ios/pull/3247
+* quick and dirty /join command by @ara4n in https://github.com/element-hq/element-x-ios/pull/3288
+
+🐛 Bugfixes
+* Await for room sync only for push notification invites by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3307
+
+🧱 Build
+* Try to stop random codecov test result action failures from failing the whole test run. by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3301
+
+Others
+* Various Danger fixes by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3304
+
+
+**Full Changelog**: https://github.com/element-hq/element-x-ios/compare/1.8.2...1.8.3
+
+## Changes in 1.8.2 (2024-09-18)
+
+### What's Changed
+
+✨ Features
+* Allow registration on matrix.org using a custom helper URL. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3282
+
+🙌 Improvements
+* Allow account deactivation when not using OIDC. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3295
+
+🗣 Translations
+* Translations update by @RiotRobot in https://github.com/element-hq/element-x-ios/pull/3283
+
+🧱 Build
+* Bump SDK to 1.0.51 by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3298
+
+🚧 In development 🚧
+* Add a WebRegistrationScreen (not included in the flow yet). by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3281
+* Added analytics for message pinning by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3284
+
+Others
+* Bump the RustSDK to v1.0.50 by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3292
+* Push the deactivate account screen. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3297
+* Use the new strings for send failures when the unsigned devices are your own. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3299
+* Stop delaying subscriptions until after startup by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3294
+
+
+**Full Changelog**: https://github.com/element-hq/element-x-ios/compare/1.8.1...1.8.2
+
+## Changes in 1.8.1 (2024-09-13)
+
+### What's Changed
+
+🐛 Bugfixes
+* Make sure we don't reuse an old NSEUserSession after logging out and back in. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3273
+* Make sure we reset the feature flag when upgrading to SSS. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3272
+* Fix interactive dismissal of our QLPreviewController iOS 18 (when built with Xcode 16). by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3274
+* Replace client side room awaiting with the SDKs new `awaitRoomRemoteEcho` method by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3279
+* Handle notifications properly when a call is happening. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3276
+
+🧱 Build
+* Upload test results to Codecov. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3266
+
+
+**Full Changelog**: https://github.com/element-hq/element-x-ios/compare/1.8.0...1.8.1
+
+## Changes in 1.8.0 (2024-09-11)
+
+### What's Changed
+
+✨ Features
+* Add a banner that offers the user to transition to native sliding sync by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3252
+
+🙌 Improvements
+* Delay setting up subscriptions until the RoomListService is running in order to avoid cancelling in flight initial sync requests by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3233
+* Require acknowledgement to send to verified users who have unsigned devices or have changed their identity. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3215
+* Make the SessionDirectories type responsible for cleaning up data. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3261
+
+🐛 Bugfixes
+* Rewrite how out of band verification changes are handled within the onboarding flows by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3234
+* Allow voice message playback in the background by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3236
+* Fix wrong durations for uploaded media by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3245
+* Make sure introspections are used on iOS 18. by @pixlwave in https://github.com/element-hq/element-x-ios/pull/3248
+* Bring back default controls for QuickLook based media viewers by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3254
+* Reduce the maximum height used by the plain text composer by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3255
+* Force frame sizes for timeline items that are missing sizing info by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3259
+
+🗣 Translations
+* Translations update by @RiotRobot in https://github.com/element-hq/element-x-ios/pull/3239
+
+🧱 Build
+* Replace Prefire with a very similar but simpler and more direct approach by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3232
+* Switch codecov-action back to v3 as 4 significantly decreases coverage by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3246
+* Free up CI runner disk space before running UI tests. by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3253
+* version bump to 1.8.0 by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3260
+* Sdk v1.0.47 by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3265
+
+🚧 In development 🚧
+* Pin Tweaks by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3242
+* Allow redacted messages to be viewed and unpinned by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3251
+* Added a pin icon by @Velin92 in https://github.com/element-hq/element-x-ios/pull/3257
+
+Others
+* Switch license to AGPL by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3237
+* Remove SS proxy migration and waitlist screens by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3154
+* Update bug.yml by @stefanceriu in https://github.com/element-hq/element-x-ios/pull/3250
+
+
+**Full Changelog**: https://github.com/element-hq/element-x-ios/compare/1.7.5...1.8.0
+
 ## Changes in 1.7.5 (2024-09-04)
 
 ### What's Changed

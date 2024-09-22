@@ -1,21 +1,13 @@
 //
-// Copyright 2022 New Vector Ltd
+// Copyright 2022-2024 New Vector Ltd.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// SPDX-License-Identifier: AGPL-3.0-only
+// Please see LICENSE in the repository root for full details.
 //
 
 import Algorithms
 import Combine
+import MatrixRustSDK
 import OrderedCollections
 import SwiftUI
 
@@ -176,6 +168,8 @@ class TimelineViewModel: TimelineViewModelType, TimelineViewModelProtocol {
             Task { state.timelineViewState.isSwitchingTimelines = false }
         case let .hasScrolled(direction):
             actionsSubject.send(.hasScrolled(direction: direction))
+        case .setOpenURLAction(let action):
+            state.openURL = action
         }
     }
 
@@ -449,7 +443,9 @@ class TimelineViewModel: TimelineViewModelType, TimelineViewModelProtocol {
     }
     
     private func updatePinnedEventIDs() async {
-        state.pinnedEventIDs = await roomProxy.pinnedEventIDs
+        if appSettings.pinningEnabled {
+            state.pinnedEventIDs = await roomProxy.pinnedEventIDs
+        }
     }
 
     private func setupDirectRoomSubscriptionsIfNeeded() {
@@ -559,14 +555,35 @@ class TimelineViewModel: TimelineViewModelType, TimelineViewModelProtocol {
             fatalError("Only events can have send info.")
         }
         
-        if case .sendingFailed = eventTimelineItem.properties.deliveryStatus {
-            // In the future we will show different errors for the various failure reasons.
+        if case .sendingFailed(.unknown) = eventTimelineItem.properties.deliveryStatus {
             displayAlert(.sendingFailed)
+        } else if case let .sendingFailed(.verifiedUser(failure)) = eventTimelineItem.properties.deliveryStatus {
+            actionsSubject.send(.displayResolveSendFailure(failure: failure, itemID: itemID))
         } else if let authenticityMessage = eventTimelineItem.properties.encryptionAuthenticity?.message {
             displayAlert(.encryptionAuthenticity(authenticityMessage))
         }
     }
+    
+    private func slashCommand(message: String) -> SlashCommand? {
+        for command in SlashCommand.allCases {
+            if message.starts(with: command.rawValue) {
+                return command
+            }
+        }
+        return nil
+    }
 
+    private func handleJoinCommand(message: String) {
+        guard let alias = String(message.dropFirst(SlashCommand.join.rawValue.count))
+            .components(separatedBy: .whitespacesAndNewlines)
+            .first,
+            let urlString = try? matrixToRoomAliasPermalink(roomAlias: alias),
+            let url = URL(string: urlString) else {
+            return
+        }
+        state.openURL?(url)
+    }
+    
     private func sendCurrentMessage(_ message: String, html: String?, mode: ComposerMode, intentionalMentions: IntentionalMentions) async {
         guard !message.isEmpty else {
             fatalError("This message should never be empty")
@@ -586,9 +603,14 @@ class TimelineViewModel: TimelineViewModelType, TimelineViewModelProtocol {
                                           html: html,
                                           intentionalMentions: intentionalMentions)
         case .default:
-            await timelineController.sendMessage(message,
-                                                 html: html,
-                                                 intentionalMentions: intentionalMentions)
+            switch slashCommand(message: message) {
+            case .join:
+                handleJoinCommand(message: message)
+            case .none:
+                await timelineController.sendMessage(message,
+                                                     html: html,
+                                                     intentionalMentions: intentionalMentions)
+            }
         case .recordVoiceMessage, .previewVoiceMessage:
             fatalError("invalid composer mode.")
         }
@@ -867,4 +889,8 @@ extension EnvironmentValues {
         get { self[FocussedEventID.self] }
         set { self[FocussedEventID.self] = newValue }
     }
+}
+
+private enum SlashCommand: String, CaseIterable {
+    case join = "/join "
 }
